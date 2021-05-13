@@ -47,6 +47,9 @@ sequelize.sync()
             ]);
         }
     });
+  })
+  .catch(err => {
+    console.error('Unable to sync the desired state model to the database:', err);
   });
   
   
