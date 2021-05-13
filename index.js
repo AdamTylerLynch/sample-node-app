@@ -13,7 +13,11 @@ const sequelize = new Sequelize('node_sample_db', process.env.DB_USER, process.e
     maxConcurrentQueries: 100,
     dialect: 'postgres',
     pool: { maxConnections: 5, maxIdleTime: 30},
-    language: 'en'
+    language: 'en',
+    dialectOptions: {
+      statement_timeout: 1000,
+      idle_in_transaction_session_timeout: 5000
+    }
 })
 
 
@@ -47,7 +51,8 @@ sequelize.sync()
   
   
   
-app.get('/', (req, res) => res.send('Sample App'));
+app.get('/', (req, res) => res.status( 200 ).send('Sample App'));
+
 app.get('/healthcheck', function(req, res) {
     
     Note.findAll()
